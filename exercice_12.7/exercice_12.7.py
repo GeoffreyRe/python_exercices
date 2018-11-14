@@ -24,6 +24,14 @@ Le tuple contenant sa valeur et sa couleur est renvoyé au programme appelant. O
 retire toujours la première carte de la liste. Si cette méthode est invoquée alors qu’il
 ne reste plus aucune carte dans la liste, il faut alors renvoyer l’objet spécial None au
 programme appelant. Exemple d’utilisation de la classe JeuDeCartes() :
+ENONCE 12.8 :
+Complément de l’exercice précédent : définir deux joueurs A et B. Instancier deux jeux
+de cartes (un pour chaque joueur) et les mélanger. Ensuite, à l’aide d’une boucle, tirer
+52 fois une carte de chacun des deux jeux et comparer leurs valeurs. Si c’est la première
+des deux qui a la valeur la plus élevée, on ajoute un point au joueur A. Si la situation
+contraire se présente, on ajoute un point au joueur B. Si les deux valeurs sont
+égales, on passe au tirage suivant. Au terme de la boucle, comparer les comptes de A et
+B pour déterminer le gagnant.
 
 """
 import random
@@ -78,13 +86,37 @@ class JeuDeCartes(object):
 			self.jeu.remove(carte)
 			return carte
 
-jeu = JeuDeCartes() # instanciation d'un objet
-jeu.battre() # mélange des cartes
-for n in range(53): # tirage des 52 cartes :
-	c = jeu.tirer()
-	if c == None: # il ne reste plus aucune carte
-		print("il n'y a plus de cartes à tirer") # dans la liste
-	else:
-		print(jeu.nom_carte(c))
-		input()
 
+jeu_A = JeuDeCartes()
+jeu_A.battre()
+
+jeu_B = JeuDeCartes()
+jeu_B.battre()
+
+points_A = 0
+
+points_B = 0
+
+for n in range(53):
+	carte_A = jeu_A.tirer()
+	carte_B = jeu_B.tirer()
+	if carte_A == None or carte_B == None:
+		break
+	print("le joueur A a tiré:", jeu_A.nom_carte(carte_A))
+	print("le joueur B a tiré:",jeu_B.nom_carte(carte_B))
+
+	if carte_A[0] > carte_B[0]:
+		points_A +=1
+
+	elif carte_A[0] < carte_B[0]:
+		points_B +=1
+
+	print("le joueur A a:", points_A,"point(s)")
+	print("le joueur B a:",points_B, "point(s)")
+	input() 
+
+if points_A > points_B : 
+	vainqueur = "A"
+if points_B > points_A :
+	vainqueur = "B"
+print("le jeu est terminé, le vainqueur est le joueur", vainqueur)
