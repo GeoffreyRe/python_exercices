@@ -34,7 +34,8 @@ contraire se présente, on ajoute un point au joueur B. Si les deux valeurs sont
 B pour déterminer le gagnant.
 
 """
-import random
+import random 
+
 #création de la classe JeuDeCartes
 
 class JeuDeCartes(object):
@@ -51,9 +52,12 @@ class JeuDeCartes(object):
 					break # lorsqu'on a toutes les valeurs pour une couleur, on passe à la couleur suivante
 				i += 1
 			j +=1
+	#méthode qui permet d'avoir le nom de la carte 
+
 	def nom_carte(self, carte):
-		valeur = carte[0]
-		couleur = carte[1]
+		valeur = carte[0] # la valeur de la carte = premier élément du tuple
+		couleur = carte[1] # couleur de la carte = 2ème élément du tuple
+		# conditions qui permettent de déterminer le "nom" de la couleur
 		if couleur == 0 :
 			couleur = "coeur"
 		elif couleur == 1:
@@ -63,8 +67,9 @@ class JeuDeCartes(object):
 		elif couleur == 3 :
 			couleur = "pique"
 		if valeur <=10:
-			return str(valeur) + " de " + couleur
+			return str(valeur) + " de " + couleur 
 		elif valeur > 10:
+			# conditions qui permettent de déterminer le "nom" de la valeur
 			if valeur ==11 :
 				valeur = "Valet"
 			if valeur == 12 :
@@ -75,28 +80,30 @@ class JeuDeCartes(object):
 				valeur = "As"
 			return valeur + " de " + couleur
 
+	# méthode qui permet de mélanger le paquet
 	def battre(self):
-		random.shuffle(self.jeu)
-
+		random.shuffle(self.jeu) # la méthode "shuffle" permet de mélanger une liste
+	# méthode qui permet de tirer la première carte du paquet
 	def tirer(self):
 		if len(self.jeu) == 0:
 			return None
 		else : 
-			carte = self.jeu[0]
-			self.jeu.remove(carte)
+			carte = self.jeu[0] # variable = au premier élément de la liste ( = première carte du paquet)
+			self.jeu.remove(carte) # on retire la carte du jeu
 			return carte
 
-
+# on crée un jeu par Joueur et on mélange chaque paquet
 jeu_A = JeuDeCartes()
 jeu_A.battre()
 
 jeu_B = JeuDeCartes()
 jeu_B.battre()
-
-points_A = 0
+# "compteur" de points pour chaque joueur
+points_A = 0 
 
 points_B = 0
 
+# boucle qui permet de comparer la valeur de la carte tirée de chaque paquet
 for n in range(53):
 	carte_A = jeu_A.tirer()
 	carte_B = jeu_B.tirer()
@@ -104,17 +111,19 @@ for n in range(53):
 		break
 	print("le joueur A a tiré:", jeu_A.nom_carte(carte_A))
 	print("le joueur B a tiré:",jeu_B.nom_carte(carte_B))
-
+	# on compare les valeurs des deux cartes et on attribue le point au joueur avec la carte la plus forte
 	if carte_A[0] > carte_B[0]:
 		points_A +=1
 
 	elif carte_A[0] < carte_B[0]:
 		points_B +=1
 
+	# on affiche le total des points de chaque joueur après chaque carte tirée
+
 	print("le joueur A a:", points_A,"point(s)")
 	print("le joueur B a:",points_B, "point(s)")
 	input() 
-
+# vérification du joueur qui a le plus de points + déclaration du vainqueur
 if points_A > points_B : 
 	vainqueur = "A"
 if points_B > points_A :
