@@ -54,8 +54,6 @@ class JeuDeCartes(object):
 
 
 jeu = JeuDeCartes() # instanciation d'un objet
-print(jeu.jeu)
-"""
 jeu.battre() # mélange des cartes
 for n in range(53): # tirage des 52 cartes :
 	c = jeu.tirer()
@@ -65,7 +63,6 @@ for n in range(53): # tirage des 52 cartes :
 		print(jeu.nom_carte(c))
 		input()
 
-"""
 
 
 
