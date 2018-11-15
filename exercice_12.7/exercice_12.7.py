@@ -24,9 +24,18 @@ Le tuple contenant sa valeur et sa couleur est renvoyé au programme appelant. O
 retire toujours la première carte de la liste. Si cette méthode est invoquée alors qu’il
 ne reste plus aucune carte dans la liste, il faut alors renvoyer l’objet spécial None au
 programme appelant. Exemple d’utilisation de la classe JeuDeCartes() :
+ENONCE 12.8 :
+Complément de l’exercice précédent : définir deux joueurs A et B. Instancier deux jeux
+de cartes (un pour chaque joueur) et les mélanger. Ensuite, à l’aide d’une boucle, tirer
+52 fois une carte de chacun des deux jeux et comparer leurs valeurs. Si c’est la première
+des deux qui a la valeur la plus élevée, on ajoute un point au joueur A. Si la situation
+contraire se présente, on ajoute un point au joueur B. Si les deux valeurs sont
+égales, on passe au tirage suivant. Au terme de la boucle, comparer les comptes de A et
+B pour déterminer le gagnant.
 
 """
-import random
+import random 
+
 #création de la classe JeuDeCartes
 
 class JeuDeCartes(object):
@@ -43,9 +52,12 @@ class JeuDeCartes(object):
 					break # lorsqu'on a toutes les valeurs pour une couleur, on passe à la couleur suivante
 				i += 1
 			j +=1
+	#méthode qui permet d'avoir le nom de la carte 
+
 	def nom_carte(self, carte):
-		valeur = carte[0]
-		couleur = carte[1]
+		valeur = carte[0] # la valeur de la carte = premier élément du tuple
+		couleur = carte[1] # couleur de la carte = 2ème élément du tuple
+		# conditions qui permettent de déterminer le "nom" de la couleur
 		if couleur == 0 :
 			couleur = "coeur"
 		elif couleur == 1:
@@ -55,8 +67,9 @@ class JeuDeCartes(object):
 		elif couleur == 3 :
 			couleur = "pique"
 		if valeur <=10:
-			return str(valeur) + " de " + couleur
+			return str(valeur) + " de " + couleur 
 		elif valeur > 10:
+			# conditions qui permettent de déterminer le "nom" de la valeur
 			if valeur ==11 :
 				valeur = "Valet"
 			if valeur == 12 :
@@ -67,24 +80,52 @@ class JeuDeCartes(object):
 				valeur = "As"
 			return valeur + " de " + couleur
 
+	# méthode qui permet de mélanger le paquet
 	def battre(self):
-		random.shuffle(self.jeu)
-
+		random.shuffle(self.jeu) # la méthode "shuffle" permet de mélanger une liste
+	# méthode qui permet de tirer la première carte du paquet
 	def tirer(self):
 		if len(self.jeu) == 0:
 			return None
 		else : 
-			carte = self.jeu[0]
-			self.jeu.remove(carte)
+			carte = self.jeu[0] # variable = au premier élément de la liste ( = première carte du paquet)
+			self.jeu.remove(carte) # on retire la carte du jeu
 			return carte
 
-jeu = JeuDeCartes() # instanciation d'un objet
-jeu.battre() # mélange des cartes
-for n in range(53): # tirage des 52 cartes :
-	c = jeu.tirer()
-	if c == None: # il ne reste plus aucune carte
-		print("il n'y a plus de cartes à tirer") # dans la liste
-	else:
-		print(jeu.nom_carte(c))
-		input()
+# on crée un jeu par Joueur et on mélange chaque paquet
+jeu_A = JeuDeCartes()
+jeu_A.battre()
 
+jeu_B = JeuDeCartes()
+jeu_B.battre()
+# "compteur" de points pour chaque joueur
+points_A = 0 
+
+points_B = 0
+
+# boucle qui permet de comparer la valeur de la carte tirée de chaque paquet
+for n in range(53):
+	carte_A = jeu_A.tirer()
+	carte_B = jeu_B.tirer()
+	if carte_A == None or carte_B == None:
+		break
+	print("le joueur A a tiré:", jeu_A.nom_carte(carte_A))
+	print("le joueur B a tiré:",jeu_B.nom_carte(carte_B))
+	# on compare les valeurs des deux cartes et on attribue le point au joueur avec la carte la plus forte
+	if carte_A[0] > carte_B[0]:
+		points_A +=1
+
+	elif carte_A[0] < carte_B[0]:
+		points_B +=1
+
+	# on affiche le total des points de chaque joueur après chaque carte tirée
+
+	print("le joueur A a:", points_A,"point(s)")
+	print("le joueur B a:",points_B, "point(s)")
+	input() 
+# vérification du joueur qui a le plus de points + déclaration du vainqueur
+if points_A > points_B : 
+	vainqueur = "A"
+if points_B > points_A :
+	vainqueur = "B"
+print("le jeu est terminé, le vainqueur est le joueur", vainqueur)
