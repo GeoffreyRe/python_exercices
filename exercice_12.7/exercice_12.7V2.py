@@ -1,5 +1,5 @@
 """ 
-Création d'un véritable jeu de bataille sur base de l'exercice 12.7
+Création d'un jeu de bataille sur base de l'exercice 12.7
 
 """
 import random
