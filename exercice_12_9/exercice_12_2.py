@@ -13,8 +13,7 @@ class CompteBanquaire(object):
 	def affiche(self):
 		print("titulaire du compte :",self.nom, "/Solde restant sur le compte :", self.solde)
 
-
-if __main__ == "__name__":
+if __name__ == "__main__":
 	compte1 = CompteBanquaire("Duchmol", 800)
 	compte1.depot(350)
 	compte1.retrait(200)
@@ -26,5 +25,3 @@ if __main__ == "__name__":
 	compte2.depot(25)
 	compte2.affiche()
 
-else : 
-	print(bonjour)
