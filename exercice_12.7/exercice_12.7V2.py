@@ -1,4 +1,5 @@
-""" 
+
+"""
 Création d'un jeu de bataille sur base de l'exercice 12.7
 
 """
