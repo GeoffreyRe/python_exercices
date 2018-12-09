@@ -34,8 +34,8 @@ class Zone:
         self.inhabitants = 0
 
     def inizialize_zones(self):
-        for longitude in range(self.MIN_LONGITUDE_DEGREES,self.MAX_LONGITUDE_DEGREES, self.WIDTH_DEGREES)
-
+        for longitude in range(self.MIN_LONGITUDE_DEGREES,self.MAX_LONGITUDE_DEGREES, self.WIDTH_DEGREES):
+            pass
 
 
 
